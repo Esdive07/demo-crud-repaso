@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rah.demo.crudrepaso.entity.UserEntity;
+import com.rah.demo.crudrepaso.model.UserModel;
 import com.rah.demo.crudrepaso.service.UserService;
 
 @RestController
@@ -27,6 +28,11 @@ public class UserController {
 		this.userService = userService;
 	}
 
+	@PostMapping("/model")
+	public ResponseEntity<UserModel> createUserModel(@RequestBody UserModel usermodel) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(this.userService.createrUserWithModel(usermodel));
+	}
+	
 	@PostMapping
 	public ResponseEntity<UserEntity> createUser(@RequestBody UserEntity userEntity) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(this.userService.createUser(userEntity));

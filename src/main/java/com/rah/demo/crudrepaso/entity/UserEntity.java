@@ -11,69 +11,28 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import lombok.Data;
 
 @Entity
 @Table(name = "users")
+@Data
 public class UserEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@JsonProperty("index")
 	private Integer id;
-	private Integer documento;
+	@JsonProperty("documento")
+	private Integer documentoUser;
 	private String nombre;
 	private String apellido;
 	private Integer edad;
 
 	@OneToMany(mappedBy = "userEntity", cascade = CascadeType.ALL)
 	@JsonManagedReference
+	@JsonProperty("direcciones")
 	private List<DireccionEntity> direccionEntities;
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public Integer getDocumento() {
-		return documento;
-	}
-
-	public void setDocumento(Integer documento) {
-		this.documento = documento;
-	}
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	public String getApellido() {
-		return apellido;
-	}
-
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
-	}
-
-	public Integer getEdad() {
-		return edad;
-	}
-
-	public void setEdad(Integer edad) {
-		this.edad = edad;
-	}
-
-	public List<DireccionEntity> getDireccionEntities() {
-		return direccionEntities;
-	}
-
-	public void setDireccionEntities(List<DireccionEntity> direccionEntities) {
-		this.direccionEntities = direccionEntities;
-	}
 
 }

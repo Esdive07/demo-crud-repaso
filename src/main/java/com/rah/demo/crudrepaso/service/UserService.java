@@ -7,21 +7,31 @@ import org.springframework.stereotype.Service;
 
 import com.rah.demo.crudrepaso.entity.DireccionEntity;
 import com.rah.demo.crudrepaso.entity.UserEntity;
+import com.rah.demo.crudrepaso.model.UserModel;
 import com.rah.demo.crudrepaso.repository.UserRepository;
+import com.rah.demo.crudrepaso.util.MapperUtil;
 
 @Service
 public class UserService {
 
 	private UserRepository userRepository;
+	private MapperUtil mapper;
 
-	public UserService(UserRepository userRepository) {
+	public UserService(UserRepository userRepository, MapperUtil mapper) {
 		super();
 		this.userRepository = userRepository;
+		this.mapper = mapper;
+	}
+
+	public UserModel createrUserWithModel(UserModel userModel) {
+		UserEntity userEntity = this.mapper.mapperObject(userModel, UserEntity.class);
+		UserEntity userSaved = this.userRepository.save(userEntity);
+		return this.mapper.mapperObject(userSaved, UserModel.class);
 	}
 
 	// create
 	public UserEntity createUser(UserEntity userEntity) {
-		if (userEntity.getDocumento() != null && userEntity.getDocumento() > 0) {
+		if (userEntity.getDocumentoUser() != null && userEntity.getDocumentoUser() > 0) {
 			if (userEntity.getNombre() != null && userEntity.getNombre().isBlank()) {
 				if (userEntity.getApellido() != null && userEntity.getApellido().isBlank()) {
 					if (userEntity.getDireccionEntities().size() == 0) {
