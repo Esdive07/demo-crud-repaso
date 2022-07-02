@@ -32,8 +32,8 @@ public class UserService {
 	// create
 	public UserEntity createUser(UserEntity userEntity) {
 		if (userEntity.getDocumentoUser() != null && userEntity.getDocumentoUser() > 0) {
-			if (userEntity.getNombre() != null && userEntity.getNombre().isBlank()) {
-				if (userEntity.getApellido() != null && userEntity.getApellido().isBlank()) {
+			if (userEntity.getNombre() != null && !userEntity.getNombre().isBlank()) {
+				if (userEntity.getApellido() != null && !userEntity.getApellido().isBlank()) {
 					if (userEntity.getDireccionEntities().size() == 0) {
 
 						List<DireccionEntity> lista = new ArrayList<>();
